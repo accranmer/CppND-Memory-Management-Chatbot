@@ -33,4 +33,4 @@ public:
     void AddToken(std::string token);
 };
 
-#endif /* GRAPHEDGE_H_ */
+#endif /* GRAPHEDGE_H_ */ 
