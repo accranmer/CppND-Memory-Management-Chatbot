@@ -44,7 +44,85 @@ ChatBot::~ChatBot()
 
 //// STUDENT CODE
 ////
+// Copy Constructor
+ChatBot::ChatBot(const ChatBot &source){
+    std::cout << "ChatBot Copy Constructor" << std::endl;
+    
+    // copy data handles
+    _chatLogic = source._chatLogic;
+    _chatLogic->SetChatbotHandle(this);
 
+    _rootNode = source._rootNode;
+    _currentNode = source._currentNode;
+
+    // load image into heap memory
+    _image = new wxBitmap();
+    *_image = *source._image;
+}
+
+// Copy Assignment Operator
+ChatBot &ChatBot::operator=(ChatBot& source)
+{
+    std::cout << "ChatBot Copy Assignment Operator" << std::endl;
+    if (this == &source)
+        return *this;
+
+    // copy data handles
+    _chatLogic = source._chatLogic;
+    _chatLogic->SetChatbotHandle(this);
+
+    _rootNode = source._rootNode;
+    _currentNode = source._currentNode;
+    if (_image != nullptr)
+        delete _image;
+    _image = new wxBitmap();
+    *_image = *source._image;
+    
+    return *this;
+}
+
+// Move Constructor
+ChatBot::ChatBot(ChatBot &&source){
+    std::cout << "ChatBot Move Constructor" << std::endl;
+    
+    // copy data handles
+    _chatLogic = source._chatLogic;
+    _chatLogic->SetChatbotHandle(this);
+    _rootNode = source._rootNode;
+    _currentNode = source._currentNode;
+    // load image into heap memory
+    _image = new wxBitmap();
+    *_image = *source._image;
+
+    source._chatLogic = nullptr;
+    source._rootNode = nullptr;
+    source._image = nullptr;
+}
+
+// Move Assignment Operator
+ChatBot &ChatBot::operator=(ChatBot &&source)
+{
+    std::cout << "ChatBot Move Assignment Operator" << std::endl;
+    if (this == &source)
+        return *this;
+
+    // copy data handles
+    _chatLogic = source._chatLogic;
+    _chatLogic->SetChatbotHandle(this);
+    _rootNode = source._rootNode;
+    _currentNode = source._currentNode;
+    
+    // load image into heap memory
+    if (_image != nullptr)
+        delete _image;
+    _image = new wxBitmap();
+    *_image = *source._image;
+
+    source._chatLogic = nullptr;
+    source._rootNode = nullptr;
+    source._image = nullptr;
+    return *this;
+}
 ////
 //// EOF STUDENT CODE
 
